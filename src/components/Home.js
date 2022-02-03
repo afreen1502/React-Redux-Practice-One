@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 const Home = (props) => {
-  console.log('props', props);
+  console.log('props', props, props.data.cardItems);
   const [details, setDetails] = useState({
     name: '',
     price: '',
@@ -17,14 +17,19 @@ const Home = (props) => {
     });
   };
   const submitHandler = () => {
-    console.log('details', details);
+    console.log('details', details, props.data.cardItems);
   };
   return (
     <div>
+      <div>{props.data.cardItems.length}</div>
       <input type="text" value={details.name} onChange={(e) => setName(e)} />
       <input type="text" value={details.price} onChange={(e) => setPrice(e)} />
       <button onClick={() => props.addToCartHandler(details)}>submit</button>
-      <button onClick={() => props.removeFromCartHandler()}>Remove</button>
+      {props.data.cardItems.length > 0 ? (
+        <button onClick={() => props.removeFromCartHandler()}>Remove</button>
+      ) : (
+        <p>Already empty!</p>
+      )}
     </div>
   );
 };
